@@ -202,6 +202,11 @@ Module Module1
                 If i = cardsInPlay Then
                     Exit While
                 End If
+                If i Mod 2 = 0 Then
+                    pCards.Add(i)
+                ElseIf i Mod 2 = 1 Then
+                    cpuCards.Add(i)
+                End If
                 DogCard(i) = line
                 i = i + 1
             End While
