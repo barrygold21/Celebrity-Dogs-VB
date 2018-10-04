@@ -321,92 +321,55 @@ Module Module1
             Console.Write("{0}   ", exercise(cpuCards(0)))
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.White
-            Console.WriteLine("-------------------------------")
-            Console.Write("Intelligence:     ")
-            Console.Write("{0}       ", intelligence(pCards(0)))
-            Console.Write("{0}   ", intelligence(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.Write("Friendliness:     ")
-            Console.Write("{0}        ", friendliness(pCards(0)))
-            Console.Write("{0}   ", friendliness(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.Write("Drool:            ")
-            Console.Write("{0}        ", drool(pCards(0)))
-            Console.Write("{0}   ", drool(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-        ElseIf nextCategory = 2 Then
+        Else
             Console.Write("Exercise:         ")
             Console.Write("{0}        ", exercise(pCards(0)))
             Console.Write("{0}   ", exercise(cpuCards(0)))
             Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.ForegroundColor = ConsoleColor.DarkYellow
-            Console.Write("Intelligence:     ")
-            Console.Write("{0}       ", intelligence(pCards(0)))
-            Console.Write("{0}   ", intelligence(cpuCards(0)))
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.White
-            Console.WriteLine("-------------------------------")
-            Console.Write("Friendliness:     ")
-            Console.Write("{0}        ", friendliness(pCards(0)))
-            Console.Write("{0}   ", friendliness(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.Write("Drool:            ")
-            Console.Write("{0}        ", drool(pCards(0)))
-            Console.Write("{0}   ", drool(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-        ElseIf nextCategory = 3 Then
-            Console.Write("Exercise:         ")
-            Console.Write("{0}        ", exercise(pCards(0)))
-            Console.Write("{0}   ", exercise(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.Write("Intelligence:     ")
-            Console.Write("{0}       ", intelligence(pCards(0)))
-            Console.Write("{0}   ", intelligence(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.ForegroundColor = ConsoleColor.DarkYellow
-            Console.Write("Friendliness:     ")
-            Console.Write("{0}        ", friendliness(pCards(0)))
-            Console.Write("{0}   ", friendliness(cpuCards(0)))
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.White
-            Console.WriteLine("-------------------------------")
-            Console.Write("Drool:            ")
-            Console.Write("{0}        ", drool(pCards(0)))
-            Console.Write("{0}   ", drool(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-        ElseIf nextCategory = 4 Then
-            Console.Write("Exercise:         ")
-            Console.Write("{0}        ", exercise(pCards(0)))
-            Console.Write("{0}   ", exercise(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.Write("Intelligence:     ")
-            Console.Write("{0}       ", intelligence(pCards(0)))
-            Console.Write("{0}   ", intelligence(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.Write("Friendliness:     ")
-            Console.Write("{0}        ", friendliness(pCards(0)))
-            Console.Write("{0}   ", friendliness(cpuCards(0)))
-            Console.WriteLine()
-            Console.WriteLine("-------------------------------")
-            Console.ForegroundColor = ConsoleColor.DarkYellow
-            Console.Write("Drool:            ")
-            Console.Write("{0}        ", drool(pCards(0)))
-            Console.Write("{0}   ", drool(cpuCards(0)))
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.White
-            Console.WriteLine("-------------------------------")
         End If
+        Console.WriteLine("-------------------------------")
+        If nextCategory = 2 Then
+            Console.ForegroundColor = ConsoleColor.DarkYellow
+            Console.Write("Intelligence:     ")
+            Console.Write("{0}       ", intelligence(pCards(0)))
+            Console.Write("{0}   ", intelligence(cpuCards(0)))
+            Console.WriteLine()
+            Console.ForegroundColor = ConsoleColor.White
+        Else
+            Console.Write("Intelligence:     ")
+            Console.Write("{0}       ", intelligence(pCards(0)))
+            Console.Write("{0}   ", intelligence(cpuCards(0)))
+            Console.WriteLine()
+        End If
+        Console.WriteLine("-------------------------------")
+        If nextCategory = 3 Then
+            Console.ForegroundColor = ConsoleColor.DarkYellow
+            Console.Write("Friendliness:     ")
+            Console.Write("{0}        ", friendliness(pCards(0)))
+            Console.Write("{0}   ", friendliness(cpuCards(0)))
+            Console.WriteLine()
+            Console.ForegroundColor = ConsoleColor.White
+        Else
+            Console.Write("Friendliness:     ")
+            Console.Write("{0}        ", friendliness(pCards(0)))
+            Console.Write("{0}   ", friendliness(cpuCards(0)))
+            Console.WriteLine()
+        End If
+        Console.WriteLine("-------------------------------")
+        If nextCategory = 4 Then
+            Console.ForegroundColor = ConsoleColor.DarkYellow
+            Console.Write("Drool:            ")
+            Console.Write("{0}        ", drool(pCards(0)))
+            Console.Write("{0}   ", drool(cpuCards(0)))
+            Console.WriteLine()
+            Console.ForegroundColor = ConsoleColor.White
+        Else
+            Console.Write("Drool:            ")
+            Console.Write("{0}        ", drool(pCards(0)))
+            Console.Write("{0}   ", drool(cpuCards(0)))
+            Console.WriteLine()
+        End If
+        Console.WriteLine("-------------------------------")
     End Sub
 
     Function CompareStats(nextCategory As Integer)
