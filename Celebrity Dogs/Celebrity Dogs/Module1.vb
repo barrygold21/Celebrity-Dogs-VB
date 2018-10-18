@@ -8,6 +8,26 @@ Module Module1
     Dim drool(30) As Integer
     Dim pCards As New List(Of Integer)
     Dim cpuCards As New List(Of Integer)
+    Function DisplayError(code As Integer)
+        Console.Clear()
+        Console.ForegroundColor = ConsoleColor.Red
+        Console.Write("Error: ")
+        Console.ForegroundColor = ConsoleColor.White
+        Select Case code
+            Case 1
+                Console.Write("Please enter a number!")
+            Case 2
+                Console.Write("Please enter a valid number! (1, 2)")
+            Case 3
+                Console.Write("Please enter a valid number between 4 and 30! Make sure it's even!")
+            Case 4
+                Console.Write("Please enter a valid number! (1 - 4)")
+        End Select
+        Console.WriteLine()
+        System.Threading.Thread.Sleep(900)
+        Return False
+    End Function
+
 
     Sub Main()
         Console.Clear()
@@ -24,7 +44,6 @@ Module Module1
         Dim debugMode As Boolean = False
         Dim mCho As Integer = 0
         While Not inputValid
-            While Not inputValid
                 Console.Clear()
                 Console.WriteLine("Main Menu")
                 Console.WriteLine()
@@ -38,6 +57,17 @@ Module Module1
                 If IsNumeric(userChoice) Then
                     mCho = userChoice
                     inputValid = True
+                    Select Case mCho
+                        Case 1
+                            PlayGame(debugMode)
+                        Case 2
+                            Console.Clear()
+                            Console.WriteLine("Celebrity Dogs will now close.")
+                            System.Threading.Thread.Sleep(1000)
+                            Environment.Exit(0)
+                        Case Else
+                            inputValid = DisplayError(2)
+                    End Select
                 ElseIf userChoice = "ACTIVATE_DEBUG" Then
                     debugMode = True
                     Console.Clear()
@@ -57,36 +87,9 @@ Module Module1
                     Console.ForegroundColor = ConsoleColor.White
                     System.Threading.Thread.Sleep(2000)
                 Else
-                    inputValid = False
-                    Console.Clear()
-                    Console.ForegroundColor = ConsoleColor.Red
-                    Console.Write("Error: ")
-                    Console.ForegroundColor = ConsoleColor.White
-                    Console.Write("Please enter a number!")
-                    Console.WriteLine()
-                    System.Threading.Thread.Sleep(2000)
+                    inputValid = DisplayError(1)
                 End If
             End While
-            inputValid = False
-            If mCho = 1 Then
-                inputValid = True
-                PlayGame(debugMode)
-            ElseIf mCho = 2 Then
-                Console.Clear()
-                Console.WriteLine("Celebrity Dogs will now close.")
-                System.Threading.Thread.Sleep(1000)
-                Environment.Exit(0)
-            Else
-                inputValid = False
-                Console.Clear()
-                Console.ForegroundColor = ConsoleColor.Red
-                Console.Write("Error: ")
-                Console.ForegroundColor = ConsoleColor.White
-                Console.Write("Please enter a valid number! (1, 2)")
-                Console.WriteLine()
-                System.Threading.Thread.Sleep(2000)
-            End If
-        End While
     End Sub
 
     Sub PlayGame(debugMode As Boolean)
@@ -108,31 +111,27 @@ Module Module1
             Console.ReadKey(True)
             Console.Clear()
             lastRoundWinner = CompareStats(nextCategory)
-            If lastRoundWinner = "p" Then
-                Console.WriteLine("You won the last round!")
-                Console.WriteLine("As such, you will receive the card CPU used last round")
-                Console.WriteLine("Both this and your top card will go to the bottom of your deck.")
-                Console.WriteLine("You will also be allowed to choose the next category to be played from.")
-                Console.WriteLine("Press any key to continue")
-                Console.ReadKey(True)
-                Console.Clear()
-            ElseIf lastRoundWinner = "c" Then
-                Console.WriteLine("Unfortunately, the CPU won this round.")
-                Console.WriteLine("As such, it will receive the card you were using last round.")
-                Console.WriteLine("That card and the card it was using will go to the bottom of its deck.")
-                Console.WriteLine("The CPU will also choose the next category to be played.")
-                Console.WriteLine("Press any key to continue")
-                Console.ReadKey(True)
-                Console.Clear()
-            ElseIf lastRoundWinner = "DRAW" Then
-                Console.WriteLine("The last round was a draw, and so you will win the round.")
-                Console.WriteLine("As such, you will receive the card CPU used last round")
-                Console.WriteLine("Both this and your top card will go to the bottom of your deck.")
-                Console.WriteLine("You will also be allowed to choose the next category to be played from.")
-                Console.WriteLine("Press any key to continue")
-                Console.ReadKey(True)
-                Console.Clear()
-            End If
+            Select Case lastRoundWinner
+                Case "p"
+                    Console.WriteLine("As such, you will receive the card CPU used last round")
+                    Console.WriteLine("Both this and your top card will go to the bottom of your deck.")
+                    Console.WriteLine("You will also be allowed to choose the next category to be played from.")
+                    Console.WriteLine("Press any key to continue")
+                Case "c"
+                    Console.WriteLine("Unfortunately, the CPU won this round.")
+                    Console.WriteLine("As such, it will receive the card you were using last round.")
+                    Console.WriteLine("That card and the card it was using will go to the bottom of its deck.")
+                    Console.WriteLine("The CPU will also choose the next category to be played.")
+                    Console.WriteLine("Press any key to continue")
+                Case "DRAW"
+                    Console.WriteLine("The last round was a draw, and so you will win the round.")
+                    Console.WriteLine("As such, you will receive the card CPU used last round")
+                    Console.WriteLine("Both this and your top card will go to the bottom of your deck.")
+                    Console.WriteLine("You will also be allowed to choose the next category to be played from.")
+                    Console.WriteLine("Press any key to continue")
+            End Select
+            Console.ReadKey(True)
+            Console.Clear()
             MoveCardsToCorrectPlaces(lastRoundWinner)
             winner = WinDetection()
             If winner = "" Then
@@ -152,7 +151,6 @@ Module Module1
         Dim inputValid As Boolean
         Dim cardsInPlay As Integer = 0
         While Not inputValid
-            While Not inputValid
                 Console.Clear()
                 Console.WriteLine("Please enter how many cards you wish to be in play.")
                 Console.WriteLine("Keep in mind that both you and the computer will get half this amount of cards.")
@@ -163,33 +161,17 @@ Module Module1
                 If IsNumeric(userInput) Then
                     cardsInPlay = userInput
                     inputValid = True
+                    If cardsInPlay >= 4 And cardsInPlay Mod 2 = 0 And cardsInPlay <= 30 Then
+                        inputValid = True
+                        Console.Clear()
+                    Else
+                        inputValid = DisplayError(3)
+                    End If
                 Else
-                    inputValid = False
-                    Console.Clear()
-                    Console.ForegroundColor = ConsoleColor.Red
-                    Console.Write("Error: ")
-                    Console.ForegroundColor = ConsoleColor.White
-                    Console.Write("Please enter a number!")
-                    Console.WriteLine()
-                    System.Threading.Thread.Sleep(2000)
-                End If
-            End While
-            inputValid = False
-            If cardsInPlay >= 4 And cardsInPlay Mod 2 = 0 And cardsInPlay <= 30 Then
-                inputValid = True
-                Console.Clear()
-            Else
-                inputValid = False
-                Console.Clear()
-                Console.ForegroundColor = ConsoleColor.Red
-                Console.Write("Error: ")
-                Console.ForegroundColor = ConsoleColor.White
-                Console.Write("Please enter a valid number between 4 and 30! Make sure it's even!")
-                Console.WriteLine()
-                System.Threading.Thread.Sleep(2000)
+                inputValid = DisplayError(1)
             End If
-        End While
-        Return cardsInPlay
+            End While
+            Return cardsInPlay
     End Function
 
     Sub ReadFile(cardsInPlay As Integer)
@@ -270,14 +252,7 @@ Module Module1
                     If nextCategory = 1 Or nextCategory = 2 Or nextCategory = 3 Or nextCategory = 4 Then
                         inputValid = True
                     Else
-                        inputValid = False
-                        Console.Clear()
-                        Console.ForegroundColor = ConsoleColor.Red
-                        Console.Write("Error: ")
-                        Console.ForegroundColor = ConsoleColor.White
-                        Console.Write("Please enter a valid number! (1 - 4)")
-                        Console.WriteLine()
-                        System.Threading.Thread.Sleep(2000)
+                        inputValid = DisplayError(4)
                         Console.Clear()
                         DisplayTopCard()
                         If debugMode = True Then
@@ -285,14 +260,7 @@ Module Module1
                         End If
                     End If
                 Else
-                    inputValid = False
-                    Console.Clear()
-                    Console.ForegroundColor = ConsoleColor.Red
-                    Console.Write("Error: ")
-                    Console.ForegroundColor = ConsoleColor.White
-                    Console.Write("Please enter a number!")
-                    Console.WriteLine()
-                    System.Threading.Thread.Sleep(2000)
+                    inputValid = DisplayError(1)
                     Console.Clear()
                     DisplayTopCard()
                     If debugMode = True Then
